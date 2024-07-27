@@ -1,0 +1,4 @@
+add_subdirectory(test_bit_rotation)
+add_subdirectory(test_bit_shift)
+add_subdirectory(test_byte_order)
+add_subdirectory(test_significant_bit)
