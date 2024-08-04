@@ -42,6 +42,7 @@ namespace Terra::BitUtil
 // Enumeration representing some known machine endian forms
 enum class EndianClassification : std::uint32_t
 {
+    Unknown             = 0x00000000,
     Big_Endian          = 0x00010203,
     PDP_Endian          = 0x01000302,
     Honeywell_Endian    = 0x02030001,

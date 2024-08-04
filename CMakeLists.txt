@@ -18,6 +18,9 @@ endif()
 # Option to control ability to install the library
 option(bitutil_INSTALL "Install the Bit-Oriented Utilities Library" ON)
 
+# Determine whether clang-tidy will be performed
+option(bitutil_CLANG_TIDY "Use clang-tidy to perform linting during build" OFF)
+
 add_subdirectory(dependencies)
 add_subdirectory(src)
 

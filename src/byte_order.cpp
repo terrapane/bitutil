@@ -51,7 +51,7 @@ const union
  *  Comments:
  *      None.
  */
-EndianClassification DetermineMachineEndian()
+EndianClassification DetermineMachineEndian() noexcept
 {
     static_assert(CHAR_BIT == 8, "Unsupported byte size");
 
