@@ -143,10 +143,8 @@ static inline bool IsBigEndian()
 #if __cpp_lib_endian >= 201907L
 constexpr bool IsLittleOrBigEndian()
 {
-    if (std::endian::native == std::endian::little) return true;
-    if (std::endian::native == std::endian::big) return true;
-
-    return false;
+    return (std::endian::native == std::endian::little) ||
+           (std::endian::native == std::endian::big);
 }
 #else
 static inline bool IsLittleOrBigEndian()
