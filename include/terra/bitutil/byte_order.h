@@ -178,12 +178,6 @@ constexpr std::uint64_t NetworkByteOrder(std::uint64_t value)
     // Big endian machines just return the value passed in
     static_assert(IsLittleOrBigEndian());
     if constexpr (IsBigEndian()) return value;
-#else
-static inline std::uint64_t NetworkByteOrder(std::uint64_t value)
-{
-    // Big endian machines just return the value passed in
-    if (IsBigEndian()) return value;
-#endif
 
     // Little endian machines need to reverse the octet order
     return ((value >> 56) & 0x00000000000000ff) |
@@ -195,6 +189,23 @@ static inline std::uint64_t NetworkByteOrder(std::uint64_t value)
            ((value << 40) & 0x00ff000000000000) |
            ((value << 56) & 0xff00000000000000);
 }
+#else
+static inline std::uint64_t NetworkByteOrder(std::uint64_t value)
+{
+    // Big endian machines just return the value passed in
+    if (IsBigEndian()) return value;
+
+    // Little endian machines need to reverse the octet order
+    return ((value >> 56) & 0x00000000000000ff) |
+           ((value >> 40) & 0x000000000000ff00) |
+           ((value >> 24) & 0x0000000000ff0000) |
+           ((value >>  8) & 0x00000000ff000000) |
+           ((value <<  8) & 0x000000ff00000000) |
+           ((value << 24) & 0x0000ff0000000000) |
+           ((value << 40) & 0x00ff000000000000) |
+           ((value << 56) & 0xff00000000000000);
+}
+#endif
 
 /*
  *  NetworkByteOrder()
@@ -220,17 +231,23 @@ constexpr std::uint32_t NetworkByteOrder(std::uint32_t value)
     // Big endian machines just return the value passed in
     static_assert(IsLittleOrBigEndian());
     if constexpr (IsBigEndian()) return value;
-#else
-static inline std::uint32_t NetworkByteOrder(std::uint32_t value)
-{
-    // Big endian machines just return the value passed in
-    if (IsBigEndian()) return value;
-#endif
 
     // Little endian machines need to reverse the octet order
     return ((value >> 24) & 0x000000ff) | ((value >>  8) & 0x0000ff00) |
            ((value <<  8) & 0x00ff0000) | ((value << 24) & 0xff000000);
 }
+#else
+static inline std::uint32_t NetworkByteOrder(std::uint32_t value)
+{
+    // Big endian machines just return the value passed in
+    if (IsBigEndian()) return value;
+
+    // Little endian machines need to reverse the octet order
+    return ((value >> 24) & 0x000000ff) | ((value >>  8) & 0x0000ff00) |
+           ((value <<  8) & 0x00ff0000) | ((value << 24) & 0xff000000);
+}
+#endif
+
 
 /*
  *  NetworkByteOrder()
@@ -256,15 +273,19 @@ constexpr std::uint16_t NetworkByteOrder(std::uint16_t value)
     // Big endian machines just return the value passed in
     static_assert(IsLittleOrBigEndian());
     if constexpr (IsBigEndian()) return value;
+
+    // Little endian machines need to reverse the octet order
+    return ((value >> 8) & 0x00ff) | ((value << 8) & 0xff00);
+}
 #else
 static inline std::uint16_t NetworkByteOrder(std::uint16_t value)
 {
     // Big endian machines just return the value passed in
     if (IsBigEndian()) return value;
-#endif
 
     // Little endian machines need to reverse the octet order
     return ((value >> 8) & 0x00ff) | ((value << 8) & 0xff00);
 }
+#endif
 
 } // namespace Terra::BitUtil
