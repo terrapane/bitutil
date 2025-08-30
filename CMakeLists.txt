@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 # Define the Bit Utilities library
 project(bitutil
-        VERSION 1.0.2.0
+        VERSION 1.0.3.0
         DESCRIPTION "Bit-Oriented Utilities Library"
         LANGUAGES CXX)
 
@@ -21,10 +21,11 @@ option(bitutil_INSTALL "Install the Bit-Oriented Utilities Library" ON)
 # Determine whether clang-tidy will be performed
 option(bitutil_CLANG_TIDY "Use clang-tidy to perform linting during build" OFF)
 
+# Ensure testing is enabled to surface tests in dependencies
+include(CTest)
+
 add_subdirectory(dependencies)
 add_subdirectory(src)
-
-include(CTest)
 
 if(BUILD_TESTING AND bitutil_BUILD_TESTS)
     add_subdirectory(test)

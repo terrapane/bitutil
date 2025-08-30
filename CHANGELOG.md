@@ -1,5 +1,10 @@
 # Change Log
 
+v1.0.3
+
+- Updated dependencies
+- Minor CMake change to facilitate testing
+
 v1.0.2
 
 - Revised build options for Windows to enable additional warnings
