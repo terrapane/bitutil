@@ -1,3 +1,6 @@
+# Include standard installation directory variables
+include(GNUInstallDirs)
+
 # Create the library
 add_library(bitutil STATIC byte_order.cpp)
 add_library(Terra::bitutil ALIAS bitutil)
@@ -7,7 +10,8 @@ target_include_directories(bitutil
     PRIVATE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 # Specify the C++ standard to observe
 set_target_properties(bitutil
@@ -33,8 +37,7 @@ target_compile_options(bitutil
         $<$<CXX_COMPILER_ID:MSVC>:/W4 /WX /Zc:__cplusplus>)
 
 # Install target and associated include files
-if (bitutil_INSTALL)
-    include(GNUInstallDirs)
+if(bitutil_INSTALL)
     install(TARGETS bitutil EXPORT bitutilTargets ARCHIVE)
     install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/ TYPE INCLUDE)
     install(EXPORT bitutilTargets
