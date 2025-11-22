@@ -1,5 +1,9 @@
 # Change Log
 
+v1.0.5
+
+- Changed how IsLittleOrBigEndian() to avoid warnings
+
 v1.0.4
 
 - CMake changes
