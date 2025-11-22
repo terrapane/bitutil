@@ -143,13 +143,13 @@ static inline bool IsBigEndian()
 #if __cpp_lib_endian >= 201907L
 constexpr bool IsLittleOrBigEndian()
 {
-    return (std::endian::native == std::endian::little) ||
+    return (std::endian::native == std::endian::little) !=
            (std::endian::native == std::endian::big);
 }
 #else
 static inline bool IsLittleOrBigEndian()
 {
-    return (GetMachineEndian() == EndianClassification::Little_Endian) ||
+    return (GetMachineEndian() == EndianClassification::Little_Endian) !=
            (GetMachineEndian() == EndianClassification::Big_Endian);
 }
 #endif
