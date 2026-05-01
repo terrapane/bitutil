@@ -1,5 +1,10 @@
 # Change Log
 
+v1.0.6
+
+- Instructed clang-tidy to not complain about specific low-level operations
+  that are necessary and valid
+
 v1.0.5
 
 - Changed how IsLittleOrBigEndian() to avoid warnings

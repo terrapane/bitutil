@@ -1,7 +1,7 @@
 /*
  *  byte_order.cpp
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -29,6 +29,7 @@ namespace
 // Populate a union to facilitate detection of byte order
 const union
 {
+     // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays)
     unsigned char octets[4];
     std::uint32_t endian;
 } Observed_Endianness = {{0, 1, 2, 3}};
@@ -55,6 +56,7 @@ EndianClassification DetermineMachineEndian() noexcept
 {
     static_assert(CHAR_BIT == 8, "Unsupported byte size");
 
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
     return static_cast<EndianClassification>(Observed_Endianness.endian);
 }
 
