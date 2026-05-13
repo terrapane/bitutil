@@ -18,52 +18,11 @@
  */
 
 #include <climits>
+#include <cstdint>
 #include <terra/bitutil/byte_order.h>
 
 namespace Terra::BitUtil
 {
-
-namespace
-{
-
-// Populate a union to facilitate detection of byte order
-const union
-{
-     // NOLINTNEXTLINE(cppcoreguidelines-avoid-c-arrays)
-    unsigned char octets[4];
-    std::uint32_t endian;
-} Observed_Endianness = {{0, 1, 2, 3}};
-
-/*
- *  DetermineMachineEndian()
- *
- *  Description:
- *      This function will determine the endianness of the machine and return
- *      the value representing the endianness.
- *
- *  Parameters:
- *      None.
- *
- *  Returns:
- *      A value representing the machine's endianness.  If this is an unknown
- *      machine architecture, the result may be something other than one of
- *      the currently defined enumeration values.
- *
- *  Comments:
- *      None.
- */
-EndianClassification DetermineMachineEndian() noexcept
-{
-    static_assert(CHAR_BIT == 8, "Unsupported byte size");
-
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
-    return static_cast<EndianClassification>(Observed_Endianness.endian);
-}
-
-// Initialize the endian flags
-const EndianClassification Machine_Endian = DetermineMachineEndian();
-
-} // namespace
 
 /*
  *  GetMachineEndian()
@@ -84,7 +43,17 @@ const EndianClassification Machine_Endian = DetermineMachineEndian();
  */
 EndianClassification GetMachineEndian()
 {
-    return Machine_Endian;
+    static_assert(CHAR_BIT == 8, "Unsupported byte size");
+
+    // Populate a union to facilitate detection of byte order
+    static const union
+    {
+        unsigned char octets[4]; // NOLINT(*-avoid-c-arrays)
+        std::uint32_t endian;
+    } observed_endianness = {{0, 1, 2, 3}};
+
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-union-access)
+    return static_cast<EndianClassification>(observed_endianness.endian);
 }
 
 } // namespace Terra::BitUtil

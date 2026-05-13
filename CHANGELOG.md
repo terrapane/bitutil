@@ -4,6 +4,9 @@ v1.0.6
 
 - Instructed clang-tidy to not complain about specific low-level operations
   that are necessary and valid
+- Updated dependencies
+- Removed global variables
+- Switched from legacy enable_if to concepts
 
 v1.0.5
 

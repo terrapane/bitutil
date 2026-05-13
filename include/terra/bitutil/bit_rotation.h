@@ -1,7 +1,7 @@
 /*
  *  bit_rotation.h
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -24,6 +24,7 @@
 #include <type_traits>
 #include <climits>
 #include <limits>
+#include <concepts>
 
 namespace Terra::BitUtil
 {
@@ -62,7 +63,8 @@ namespace Terra::BitUtil
  *  Comments:
  *      None.
  */
-template<typename T, std::enable_if_t<std::is_integral<T>::value, bool> = true>
+template<typename T>
+    requires std::is_integral_v<T>
 constexpr T RotateLeft(const T value,
                        const std::size_t bits,
                        const std::size_t width = sizeof(T) * CHAR_BIT,
@@ -105,7 +107,8 @@ constexpr T RotateLeft(const T value,
  *  Comments:
  *      None.
  */
-template<typename T, std::enable_if_t<std::is_integral<T>::value, bool> = true>
+template<typename T>
+    requires std::is_integral_v<T>
 constexpr T RotateRight(const T value,
                         const std::size_t bits,
                         const std::size_t width = sizeof(T) * CHAR_BIT,

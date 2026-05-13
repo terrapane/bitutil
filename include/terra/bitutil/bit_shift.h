@@ -1,7 +1,7 @@
 /*
  *  bit_shift.h
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -23,6 +23,7 @@
 #include <cstdint>
 #include <type_traits>
 #include <limits>
+#include <concepts>
 
 namespace Terra::BitUtil
 {
@@ -55,7 +56,8 @@ namespace Terra::BitUtil
  *  Comments:
  *      None.
  */
-template<typename T, std::enable_if_t<std::is_integral<T>::value, bool> = true>
+template<typename T>
+    requires std::is_integral_v<T>
 constexpr T ShiftLeft(const T value,
                       const std::size_t bits,
                       const T mask = std::numeric_limits<T>::max())
@@ -91,7 +93,8 @@ constexpr T ShiftLeft(const T value,
  *  Comments:
  *      None.
  */
-template<typename T, std::enable_if_t<std::is_integral<T>::value, bool> = true>
+template<typename T>
+    requires std::is_integral_v<T>
 constexpr T ShiftRight(const T value,
                        const std::size_t bits,
                        const T mask = std::numeric_limits<T>::max())
