@@ -21,8 +21,8 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <type_traits>
 #include <limits>
+#include <type_traits>
 #include <concepts>
 
 namespace Terra::BitUtil
@@ -57,12 +57,19 @@ namespace Terra::BitUtil
  *      None.
  */
 template<typename T>
-    requires std::is_integral_v<T>
+    requires std::integral<T>
 constexpr T ShiftLeft(const T value,
                       const std::size_t bits,
                       const T mask = std::numeric_limits<T>::max())
 {
-    return (value << bits) & mask;
+    // Define a type for readability
+    using U = std::make_unsigned_t<T>;
+
+    // Shift the bits left
+    const U shifted_result =  static_cast<U>(value) << bits;
+
+    // Apply the mask and return the result
+    return static_cast<T>(shifted_result & static_cast<U>(mask));
 }
 
 /*
@@ -94,12 +101,19 @@ constexpr T ShiftLeft(const T value,
  *      None.
  */
 template<typename T>
-    requires std::is_integral_v<T>
+    requires std::integral<T>
 constexpr T ShiftRight(const T value,
                        const std::size_t bits,
                        const T mask = std::numeric_limits<T>::max())
 {
-    return ((value & mask) >> bits);
+    // Define a type for readability
+    using U = std::make_unsigned_t<T>;
+
+    // Mask the value
+    const U masked_value = static_cast<U>(value) & static_cast<U>(mask);
+
+    // Shift the bits and return the result
+    return static_cast<T>(masked_value >> bits);
 }
 
 } // namespace Terra::BitUtil

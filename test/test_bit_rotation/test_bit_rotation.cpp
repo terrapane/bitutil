@@ -221,4 +221,3 @@ STF_TEST(BitRotation, TestRotateRight9)
 
     STF_ASSERT_EQ(expected, result);
 }
-

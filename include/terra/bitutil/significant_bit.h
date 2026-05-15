@@ -1,7 +1,7 @@
 /*
  *  significant_bit.h
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -52,9 +52,9 @@ constexpr std::size_t FindMSb(std::uint8_t v)
     std::size_t p = 0;
 
     // Find the most significant bit position
-    if (v >= std::uint8_t(1) <<  4) p +=  4, v >>=  4;
-    if (v >= std::uint8_t(1) <<  2) p +=  2, v >>=  2;
-    if (v >= std::uint8_t(1) <<  1) p +=  1, v >>=  1;
+    if (v >= static_cast<std::uint8_t>(1) << 4U) p += 4, v >>= 4U;
+    if (v >= static_cast<std::uint8_t>(1) << 2U) p += 2, v >>= 2U;
+    if (v >= static_cast<std::uint8_t>(1) << 1U) p += 1;
 
     return p;
 }
@@ -89,8 +89,9 @@ constexpr std::size_t FindMSb(std::uint8_t v)
  */
 constexpr std::size_t FindMSb(std::int8_t v)
 {
-    return ((v >= 0) ? FindMSb(static_cast<std::uint8_t>(v)) :
-                       FindMSb(static_cast<std::uint8_t>(~v)));
+    if (v >= 0) return FindMSb(static_cast<std::uint8_t>(v));
+
+    return FindMSb(static_cast<std::uint8_t>(~static_cast<std::uint8_t>(v)));
 }
 
 /*
@@ -121,10 +122,10 @@ constexpr std::size_t FindMSb(std::uint16_t v)
     std::size_t p = 0;
 
     // Find the most significant bit position
-    if (v >= std::uint16_t(1) <<  8) p +=  8, v >>=  8;
-    if (v >= std::uint16_t(1) <<  4) p +=  4, v >>=  4;
-    if (v >= std::uint16_t(1) <<  2) p +=  2, v >>=  2;
-    if (v >= std::uint16_t(1) <<  1) p +=  1, v >>=  1;
+    if (v >= static_cast<std::uint16_t>(1) << 8U) p += 8U, v >>= 8U;
+    if (v >= static_cast<std::uint16_t>(1) << 4U) p += 4U, v >>= 4U;
+    if (v >= static_cast<std::uint16_t>(1) << 2U) p += 2U, v >>= 2U;
+    if (v >= static_cast<std::uint16_t>(1) << 1U) p += 1U;
 
     return p;
 }
@@ -159,8 +160,9 @@ constexpr std::size_t FindMSb(std::uint16_t v)
  */
 constexpr std::size_t FindMSb(std::int16_t v)
 {
-    return ((v >= 0) ? FindMSb(static_cast<std::uint16_t>(v)) :
-                       FindMSb(static_cast<std::uint16_t>(~v)));
+    if (v >= 0) return FindMSb(static_cast<std::uint16_t>(v));
+
+    return FindMSb(static_cast<std::uint16_t>(~static_cast<std::uint16_t>(v)));
 }
 
 /*
@@ -191,11 +193,11 @@ constexpr std::size_t FindMSb(std::uint32_t v)
     std::size_t p = 0;
 
     // Find the most significant bit position
-    if (v >= std::uint32_t(1) << 16) p += 16, v >>= 16;
-    if (v >= std::uint32_t(1) <<  8) p +=  8, v >>=  8;
-    if (v >= std::uint32_t(1) <<  4) p +=  4, v >>=  4;
-    if (v >= std::uint32_t(1) <<  2) p +=  2, v >>=  2;
-    if (v >= std::uint32_t(1) <<  1) p +=  1, v >>=  1;
+    if (v >= static_cast<std::uint32_t>(1) << 16U) p += 16U, v >>= 16U;
+    if (v >= static_cast<std::uint32_t>(1) <<  8U) p +=  8U, v >>=  8U;
+    if (v >= static_cast<std::uint32_t>(1) <<  4U) p +=  4U, v >>=  4U;
+    if (v >= static_cast<std::uint32_t>(1) <<  2U) p +=  2U, v >>=  2U;
+    if (v >= static_cast<std::uint32_t>(1) <<  1U) p +=  1U;
 
     return p;
 }
@@ -230,8 +232,9 @@ constexpr std::size_t FindMSb(std::uint32_t v)
  */
 constexpr std::size_t FindMSb(std::int32_t v)
 {
-    return ((v >= 0) ? FindMSb(static_cast<std::uint32_t>(v)) :
-                       FindMSb(static_cast<std::uint32_t>(~v)));
+    if (v >= 0) return FindMSb(static_cast<std::uint32_t>(v));
+
+    return FindMSb(static_cast<std::uint32_t>(~static_cast<std::uint32_t>(v)));
 }
 
 /*
@@ -262,12 +265,12 @@ constexpr std::size_t FindMSb(std::uint64_t v)
     std::size_t p = 0;
 
     // Find the most significant bit position
-    if (v >= std::uint64_t(1) << 32) p += 32, v >>= 32;
-    if (v >= std::uint64_t(1) << 16) p += 16, v >>= 16;
-    if (v >= std::uint64_t(1) <<  8) p +=  8, v >>=  8;
-    if (v >= std::uint64_t(1) <<  4) p +=  4, v >>=  4;
-    if (v >= std::uint64_t(1) <<  2) p +=  2, v >>=  2;
-    if (v >= std::uint64_t(1) <<  1) p +=  1, v >>=  1;
+    if (v >= static_cast<std::uint64_t>(1) << 32U) p += 32U, v >>= 32U;
+    if (v >= static_cast<std::uint64_t>(1) << 16U) p += 16U, v >>= 16U;
+    if (v >= static_cast<std::uint64_t>(1) <<  8U) p +=  8U, v >>=  8U;
+    if (v >= static_cast<std::uint64_t>(1) <<  4U) p +=  4U, v >>=  4U;
+    if (v >= static_cast<std::uint64_t>(1) <<  2U) p +=  2U, v >>=  2U;
+    if (v >= static_cast<std::uint64_t>(1) <<  1U) p +=  1U, v >>=  1U;
 
     return p;
 }
@@ -302,8 +305,9 @@ constexpr std::size_t FindMSb(std::uint64_t v)
  */
 constexpr std::size_t FindMSb(std::int64_t v)
 {
-    return ((v >= 0) ? FindMSb(static_cast<std::uint64_t>(v)) :
-                       FindMSb(static_cast<std::uint64_t>(~v)));
+    if (v >= 0) return FindMSb(static_cast<std::uint64_t>(v));
+
+    return FindMSb(static_cast<std::uint64_t>(~static_cast<std::uint64_t>(v)));
 }
 
 } // namespace Terra::BitUtil

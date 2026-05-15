@@ -1,7 +1,7 @@
 /*
  *  byte_order.h
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -42,11 +42,11 @@ namespace Terra::BitUtil
 // Enumeration representing some known machine endian forms
 enum class EndianClassification : std::uint32_t
 {
-    Unknown             = 0x00000000,
-    Big_Endian          = 0x00010203,
-    PDP_Endian          = 0x01000302,
-    Honeywell_Endian    = 0x02030001,
-    Little_Endian       = 0x03020100
+    Unknown             = 0x00000000U,
+    Big_Endian          = 0x00010203U,
+    PDP_Endian          = 0x01000302U,
+    Honeywell_Endian    = 0x02030001U,
+    Little_Endian       = 0x03020100U
 };
 
 /*
@@ -180,14 +180,14 @@ constexpr std::uint64_t NetworkByteOrder(std::uint64_t value)
     if constexpr (IsBigEndian()) return value;
 
     // Little endian machines need to reverse the octet order
-    return ((value >> 56) & 0x00000000000000ff) |
-           ((value >> 40) & 0x000000000000ff00) |
-           ((value >> 24) & 0x0000000000ff0000) |
-           ((value >>  8) & 0x00000000ff000000) |
-           ((value <<  8) & 0x000000ff00000000) |
-           ((value << 24) & 0x0000ff0000000000) |
-           ((value << 40) & 0x00ff000000000000) |
-           ((value << 56) & 0xff00000000000000);
+    return ((value >> 56U) & 0x00000000000000ffULL) |
+           ((value >> 40U) & 0x000000000000ff00ULL) |
+           ((value >> 24U) & 0x0000000000ff0000ULL) |
+           ((value >>  8U) & 0x00000000ff000000ULL) |
+           ((value <<  8U) & 0x000000ff00000000ULL) |
+           ((value << 24U) & 0x0000ff0000000000ULL) |
+           ((value << 40U) & 0x00ff000000000000ULL) |
+           ((value << 56U) & 0xff00000000000000ULL);
 }
 #else
 static inline std::uint64_t NetworkByteOrder(std::uint64_t value)
@@ -196,14 +196,14 @@ static inline std::uint64_t NetworkByteOrder(std::uint64_t value)
     if (IsBigEndian()) return value;
 
     // Little endian machines need to reverse the octet order
-    return ((value >> 56) & 0x00000000000000ff) |
-           ((value >> 40) & 0x000000000000ff00) |
-           ((value >> 24) & 0x0000000000ff0000) |
-           ((value >>  8) & 0x00000000ff000000) |
-           ((value <<  8) & 0x000000ff00000000) |
-           ((value << 24) & 0x0000ff0000000000) |
-           ((value << 40) & 0x00ff000000000000) |
-           ((value << 56) & 0xff00000000000000);
+    return ((value >> 56U) & 0x00000000000000ffULL) |
+           ((value >> 40U) & 0x000000000000ff00ULL) |
+           ((value >> 24U) & 0x0000000000ff0000ULL) |
+           ((value >>  8U) & 0x00000000ff000000ULL) |
+           ((value <<  8U) & 0x000000ff00000000ULL) |
+           ((value << 24U) & 0x0000ff0000000000ULL) |
+           ((value << 40U) & 0x00ff000000000000ULL) |
+           ((value << 56U) & 0xff00000000000000ULL);
 }
 #endif
 
@@ -233,8 +233,8 @@ constexpr std::uint32_t NetworkByteOrder(std::uint32_t value)
     if constexpr (IsBigEndian()) return value;
 
     // Little endian machines need to reverse the octet order
-    return ((value >> 24) & 0x000000ff) | ((value >>  8) & 0x0000ff00) |
-           ((value <<  8) & 0x00ff0000) | ((value << 24) & 0xff000000);
+    return ((value >> 24U) & 0x000000ffU) | ((value >>  8U) & 0x0000ff00U) |
+           ((value <<  8U) & 0x00ff0000U) | ((value << 24U) & 0xff000000U);
 }
 #else
 static inline std::uint32_t NetworkByteOrder(std::uint32_t value)
@@ -243,8 +243,8 @@ static inline std::uint32_t NetworkByteOrder(std::uint32_t value)
     if (IsBigEndian()) return value;
 
     // Little endian machines need to reverse the octet order
-    return ((value >> 24) & 0x000000ff) | ((value >>  8) & 0x0000ff00) |
-           ((value <<  8) & 0x00ff0000) | ((value << 24) & 0xff000000);
+    return ((value >> 24U) & 0x000000ffU) | ((value >>  8U) & 0x0000ff00U) |
+           ((value <<  8U) & 0x00ff0000U) | ((value << 24U) & 0xff000000U);
 }
 #endif
 
@@ -275,7 +275,8 @@ constexpr std::uint16_t NetworkByteOrder(std::uint16_t value)
     if constexpr (IsBigEndian()) return value;
 
     // Little endian machines need to reverse the octet order
-    return ((value >> 8) & 0x00ff) | ((value << 8) & 0xff00);
+    return ((static_cast<unsigned>(value) >> 8U) & 0x00ffU) |
+           ((static_cast<unsigned>(value) << 8U) & 0xff00U);
 }
 #else
 static inline std::uint16_t NetworkByteOrder(std::uint16_t value)
@@ -284,7 +285,7 @@ static inline std::uint16_t NetworkByteOrder(std::uint16_t value)
     if (IsBigEndian()) return value;
 
     // Little endian machines need to reverse the octet order
-    return ((value >> 8) & 0x00ff) | ((value << 8) & 0xff00);
+    return ((value >> 8U) & 0x00ffU) | ((value << 8U) & 0xff00U);
 }
 #endif
 

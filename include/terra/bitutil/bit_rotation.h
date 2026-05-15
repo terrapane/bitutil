@@ -21,9 +21,9 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <type_traits>
 #include <climits>
 #include <limits>
+#include <type_traits>
 #include <concepts>
 
 namespace Terra::BitUtil
@@ -64,13 +64,26 @@ namespace Terra::BitUtil
  *      None.
  */
 template<typename T>
-    requires std::is_integral_v<T>
+    requires std::integral<T>
 constexpr T RotateLeft(const T value,
                        const std::size_t bits,
                        const std::size_t width = sizeof(T) * CHAR_BIT,
                        const T mask = std::numeric_limits<T>::max())
 {
-    return ((value << bits) | ((value & mask) >> (width - bits))) & mask;
+    // Define a type for readability
+    using U = std::make_unsigned_t<T>;
+
+    // Perform the left shift
+    const U shift_left = static_cast<U>(value) << bits;
+
+    // Perform the right shift
+    const U shift_right = static_cast<U>(value) >> static_cast<U>(width - bits);
+
+    // Stitch the halves together
+    const U new_value = shift_left | shift_right;
+
+    // Apply the mask and return the result
+    return static_cast<T>(new_value & static_cast<U>(mask));
 }
 
 /*
@@ -108,13 +121,27 @@ constexpr T RotateLeft(const T value,
  *      None.
  */
 template<typename T>
-    requires std::is_integral_v<T>
+    requires std::integral<T>
 constexpr T RotateRight(const T value,
                         const std::size_t bits,
                         const std::size_t width = sizeof(T) * CHAR_BIT,
                         const T mask = std::numeric_limits<T>::max())
 {
-    return (((value & mask) >> bits) | (value << (width - bits))) & mask;
+    // Define a type for readability
+    using U = std::make_unsigned_t<T>;
+
+    // Perform the right shift
+    const U shift_right =
+        static_cast<U>((static_cast<U>(value) & static_cast<U>(mask))) >> bits;
+
+    // Perform the left shift
+    const U shift_left = static_cast<U>(value) << static_cast<U>(width - bits);
+
+    // Stitch the halves together
+    const U new_value = shift_right | shift_left;
+
+    // Apply the mask and return the result
+    return static_cast<T>(new_value & static_cast<U>(mask));
 }
 
 } // namespace Terra::BitUtil

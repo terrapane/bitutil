@@ -1,7 +1,7 @@
 /*
  *  test_significant_bit.cpp
  *
- *  Copyright (C) 2024
+ *  Copyright (C) 2024, 2026
  *  Terrapane Corporation
  *  All Rights Reserved
  *
@@ -65,6 +65,11 @@ STF_TEST(SignificantBit, TestSignificantBitInt16)
 
     // Negative integers
     STF_ASSERT_EQ(0, BitUtil::FindMSb(std::int16_t(-1)));
+    STF_ASSERT_EQ(0, BitUtil::FindMSb(std::int16_t(-2)));
+    STF_ASSERT_EQ(1, BitUtil::FindMSb(std::int16_t(-3)));
+    STF_ASSERT_EQ(1, BitUtil::FindMSb(std::int16_t(-4)));
+    STF_ASSERT_EQ(2, BitUtil::FindMSb(std::int16_t(-5)));
+    STF_ASSERT_EQ(3, BitUtil::FindMSb(std::int16_t(-9)));
     STF_ASSERT_EQ(7, BitUtil::FindMSb(std::int16_t(-129)));
     STF_ASSERT_EQ(14, BitUtil::FindMSb(std::int16_t(-16385)));
 }
@@ -94,6 +99,11 @@ STF_TEST(SignificantBit, TestSignificantBitInt32)
 
     // Negative integers
     STF_ASSERT_EQ(0, BitUtil::FindMSb(std::int32_t(-1)));
+    STF_ASSERT_EQ(0, BitUtil::FindMSb(std::int32_t(-2)));
+    STF_ASSERT_EQ(1, BitUtil::FindMSb(std::int32_t(-3)));
+    STF_ASSERT_EQ(1, BitUtil::FindMSb(std::int32_t(-4)));
+    STF_ASSERT_EQ(2, BitUtil::FindMSb(std::int32_t(-5)));
+    STF_ASSERT_EQ(3, BitUtil::FindMSb(std::int32_t(-9)));
     STF_ASSERT_EQ(7, BitUtil::FindMSb(std::int32_t(-129)));
     STF_ASSERT_EQ(14, BitUtil::FindMSb(std::int32_t(-16385)));
     STF_ASSERT_EQ(30, BitUtil::FindMSb(std::int32_t(-1073741825L)));
@@ -128,6 +138,11 @@ STF_TEST(SignificantBit, TestSignificantBitInt64)
 
     // Negative integers
     STF_ASSERT_EQ(0, BitUtil::FindMSb(std::int64_t(-1)));
+    STF_ASSERT_EQ(0, BitUtil::FindMSb(std::int64_t(-2)));
+    STF_ASSERT_EQ(1, BitUtil::FindMSb(std::int64_t(-3)));
+    STF_ASSERT_EQ(1, BitUtil::FindMSb(std::int64_t(-4)));
+    STF_ASSERT_EQ(2, BitUtil::FindMSb(std::int64_t(-5)));
+    STF_ASSERT_EQ(3, BitUtil::FindMSb(std::int64_t(-9)));
     STF_ASSERT_EQ(7, BitUtil::FindMSb(std::int64_t(-129)));
     STF_ASSERT_EQ(15, BitUtil::FindMSb(std::int64_t(-32769)));
     STF_ASSERT_EQ(31, BitUtil::FindMSb(std::int64_t(-2147483649LL)));
