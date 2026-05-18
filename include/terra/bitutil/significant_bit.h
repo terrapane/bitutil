@@ -270,7 +270,7 @@ constexpr std::size_t FindMSb(std::uint64_t v)
     if (v >= static_cast<std::uint64_t>(1) <<  8U) p +=  8U, v >>=  8U;
     if (v >= static_cast<std::uint64_t>(1) <<  4U) p +=  4U, v >>=  4U;
     if (v >= static_cast<std::uint64_t>(1) <<  2U) p +=  2U, v >>=  2U;
-    if (v >= static_cast<std::uint64_t>(1) <<  1U) p +=  1U, v >>=  1U;
+    if (v >= static_cast<std::uint64_t>(1) <<  1U) p +=  1U;
 
     return p;
 }
