@@ -20,19 +20,17 @@
  *  Portability Issues:
  *      C++20 is recommended to utilize most of the functions in this file.
  *      However, functions are declared with `static line` if using older
- *      versions of C++.  The following `#if` checks are performed:
- *          __cplusplus >= 202002L => Looks for C++20
- *          __cpp_lib_endian >= 201907L => Support for std::endian
+ *      versions of C++.
  */
 
 #pragma once
 
 #include <cstdint>
 
-// This header is only available with C++20 (MSVC does not set __cplusplus
-// correctly unless compiling with compiler flag `/Zc:__cplusplus`, so
-// also check for the `__cpp_lib_endian` feature)
-#if (__cplusplus >= 202002L) || (__cpp_lib_endian >= 201907L)
+// MSVC does not set __cplusplus correctly unless compiling with the flag
+// /Zc:__cplusplus, so also check _MSVC_LANG
+#if (__cplusplus >= 202002L) || (_MSVC_LANG >= 202002L)
+#include <version>
 #include <bit>
 #endif
 
