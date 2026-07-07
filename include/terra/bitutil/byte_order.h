@@ -82,7 +82,7 @@ EndianClassification GetMachineEndian();
  *      This is constexpr function under C++20, but not C++17 or earlier.
  */
 #if __cpp_lib_endian >= 201907L
-constexpr bool IsLittleEndian()
+consteval bool IsLittleEndian()
 {
     return std::endian::native == std::endian::little;
 }
@@ -109,7 +109,7 @@ static inline bool IsLittleEndian()
  *      This is constexpr function under C++20, but not C++17 or earlier.
  */
 #if __cpp_lib_endian >= 201907L
-constexpr bool IsBigEndian()
+consteval bool IsBigEndian()
 {
     return std::endian::native == std::endian::big;
 }
@@ -139,7 +139,7 @@ static inline bool IsBigEndian()
  *      generated a warning.
  */
 #if __cpp_lib_endian >= 201907L
-constexpr bool IsLittleOrBigEndian()
+consteval bool IsLittleOrBigEndian()
 {
     return (std::endian::native == std::endian::little) !=
            (std::endian::native == std::endian::big);
