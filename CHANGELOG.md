@@ -1,5 +1,9 @@
 # Change Log
 
+v1.0.7
+
+- Made some functions consteval
+
 v1.0.6
 
 - Instructed clang-tidy to not complain about specific low-level operations
