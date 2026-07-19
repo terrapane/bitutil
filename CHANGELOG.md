@@ -3,6 +3,7 @@
 v1.0.7
 
 - Made some functions consteval
+- Stricter compiler warnings
 
 v1.0.6
 
